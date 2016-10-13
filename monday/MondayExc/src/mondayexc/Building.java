@@ -1,85 +1,78 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package mondayexc;
 
+import java.util.ArrayList;
 
-public class Building 
-{
-    int id;
-    String address;
-    int zip;
-    String city;
-    String contactPerson;
-    String contactPhone;
+public class Building {
 
-    public Building(int id, String adress, int zip, String city, String contactPerson, String contactPhone) {
-        this.id = id;
-        this.address = adress;
+    // street address, a contact person (name and telephone)
+    private int id;
+    private String address;
+    private int zip;
+    private String city;
+    private String contactPerson;
+    private String contactPhone;
+    private ArrayList<Room> room; 
+
+    public Building(String address, int zip, String City, String contactPerson, String contactPhone, ArrayList<Room> tempList) {
+        this.address = address;
         this.zip = zip;
-        this.city = city;
+        this.city = City;
         this.contactPerson = contactPerson;
         this.contactPhone = contactPhone;
-    }
-    
-    public Building(String adress, int zip, String city, String contactPerson, String contactPhone) 
-    {
-        this.address = adress;
-        this.zip = zip;
-        this.city = city;
-        this.contactPerson = contactPerson;
-        this.contactPhone = contactPhone;
+        this.room = tempList;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Building( " + address + ", " + zip + ", " + city + ", "
+                + contactPerson + ", " + contactPhone + " )";
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getAdress() {
+    public String getAddress() {
         return address;
-    }
-
-    public void setAdress(String adress) {
-        this.address = adress;
     }
 
     public int getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getContactPerson() {
         return contactPerson;
     }
 
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
     public String getContactPhone() {
         return contactPhone;
     }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    @Override
-    public String toString() {
-        return "Building{" + "id=" + id + ", adress=" + address + ", zip=" + zip + ", city=" + city + ", contactPerson=" + contactPerson + ", contactPhone=" + contactPhone + '}';
+    
+    public void addRoom(Room tempRoom){
+        this.room.add(tempRoom);
     }
     
+    public String deleteRoom(int id){
+        int count = 0;
+        for(Room r : room){
+            count++;
+            if(r.getId() == id){
+            room.remove(r);
+            return "Room was successfully removed!";
+            }
+            
+        }
+        
+        return "Room was not found!";
+    }
+    
+    public int getAmountOfRooms(){
+        return room.size();
+    }
+
 }

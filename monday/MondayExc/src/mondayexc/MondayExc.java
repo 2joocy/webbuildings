@@ -11,7 +11,7 @@ public class MondayExc
 {
     private static Connection myConn = DBConnection.getConnection();
     private static ArrayList<Building> buildings = new ArrayList<>();
-    
+    private static ArrayList<Room> room = new ArrayList<>();
     public static void main(String[] args) 
     {
         getBuildings();
@@ -21,7 +21,9 @@ public class MondayExc
         }
         
         ArrayList<Building> bingoTid = new ArrayList<>();
-        bingoTid.add(new Building("Bingovej", 2600, "Bingobyen", "Farvelmanden", "900000"));
+        Building b;
+        b = new Building("bingovej", 6666, "Den er go", "Viktor", "666666666", room);
+        bingoTid.add(new Building("Bingovej", 2600, "Bingobyen", "Farvelmanden", "900000", room));
         addNewBuildings(bingoTid);
     }
     
@@ -41,7 +43,7 @@ public class MondayExc
                 String city = result.getString("city");
                 String contactPerson = result.getString("contactPerson");
                 String contactPhone = result.getString("contactPhone");
-                buildings.add(new Building(id, address, zip, city, contactPerson, contactPhone));
+                buildings.add(new Building(address, zip, city, contactPerson, contactPhone, room));
             }
         }
         catch(Exception ex)
@@ -65,7 +67,7 @@ public class MondayExc
         String sql = "INSERT INTO building (address, zip, city, contactPerson, contactPhone)"
                     + "VALUES (?,?,?,?,?)";
         PreparedStatement prepared = myConn.prepareStatement(sql);
-        prepared.setString(1, building.getAdress());
+        prepared.setString(1, building.getAddress());
         prepared.setInt(2, building.getZip());
         prepared.setString(3, building.getCity());
         prepared.setString(4, building.getContactPerson());
