@@ -69,9 +69,9 @@ public class Building {
             if(r.getId() == id){
             room.remove(count);
             return "Room was successfully removed!";
-            }else{
-            return "Room was not found!";
             }
+            
+            return "Room was not found!";
         }
         
         return "";
