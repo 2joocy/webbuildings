@@ -6,6 +6,7 @@
 package DbHandler;
 
 import entities.Building;
+import entities.Room;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +23,7 @@ public class DbBuildingHandler {
     public ArrayList getBuildings() {
 
         ArrayList<Building> buildingList = new ArrayList<Building>();
+        ArrayList<Room> roomList = new ArrayList<Room>();
 
         try {
 
@@ -37,7 +39,7 @@ public class DbBuildingHandler {
                 String contactPerson = myRS.getString("contactPerson");
                 String contactPhone = myRS.getString("contactPhone");
 
-                Building tempB = new Building(idBuilding, address, zip, city, contactPerson, contactPhone);
+                Building tempB = new Building(idBuilding,address, zip, city, contactPerson, contactPhone, roomList);
                 buildingList.add(tempB);
             }
         } catch (SQLException | HeadlessException ex) {
