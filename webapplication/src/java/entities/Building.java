@@ -54,4 +54,24 @@ public class Building {
         return contactPhone;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setZip(int zip) {
+        this.zip = zip;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setContactPerson(String contactPerson) {
+        this.contactPerson = contactPerson;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
 }

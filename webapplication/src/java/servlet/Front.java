@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DbHandler.*;
+import entities.Building;
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author William-PC
@@ -20,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Front", urlPatterns = {"/Front"})
 public class Front extends HttpServlet {
 
+    DbBuildingHandler handler = new DbBuildingHandler();
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,21 +35,46 @@ public class Front extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Front</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Front at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        PrintWriter writer = response.getWriter();
+        
+        String method = request.getParameter("method");
+        String buildingID = request.getParameter("buildingID");
+        
+        String address = request.getParameter("address");
+        int zip = -1;
+        String city = null;
+        String contactPerson = null;
+        String contactPhone = null;
+        if (address != null) {
+             zip = Integer.parseInt(request.getParameter("zip"));
+             city = request.getParameter("city");
+             contactPerson = request.getParameter("contactPerson");
+             contactPhone = request.getParameter("contactPhone");
         }
+        Building building = handler.getBuilding(Integer.parseInt(buildingID));
+        
+        switch (method) {
+            case "edit1":
+                HttpSession session = request.getSession();
+                session.setAttribute("editbuilding", building);
+                response.sendRedirect("editBuilding.jsp");
+                break;
+                
+            case "edit2":
+                building.setAddress(address);
+                building.setZip(zip);
+                building.setCity(city);
+                building.setContactPerson(contactPerson);
+                building.setContactPhone(contactPhone);
+                handler.updateDatabase(building);
+                response.sendRedirect("index.jsp");
+                break;
+                
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

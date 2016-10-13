@@ -14,9 +14,8 @@
     </head>
     <body>
         <%
-        DbBuildingHandler db = new DbBuildingHandler();
-        
-        out.print(db.showBuildings(db.getBuildings()));
+            DbBuildingHandler db = new DbBuildingHandler();
+            out.print(db.showBuildings(db.getBuildings()));
         %>
     </body>
 </html>
