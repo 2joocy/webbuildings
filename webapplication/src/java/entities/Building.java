@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.ArrayList;
+
 public class Building {
 
     // street address, a contact person (name and telephone)
@@ -14,14 +16,16 @@ public class Building {
     private String city;
     private String contactPerson;
     private String contactPhone;
+    private ArrayList<Room> room = new ArrayList<Room>();
 
-    public Building( int id, String address, int zip, String City, String contactPerson, String contactPhone ) {
+    public Building( int id, String address, int zip, String City, String contactPerson, String contactPhone, ArrayList<Room> tempList) {
         this.id = id;
         this.address = address;
         this.zip = zip;
         this.city = City;
         this.contactPerson = contactPerson;
         this.contactPhone = contactPhone;
+        this.room = tempList;
     }
 
     @Override
@@ -52,6 +56,29 @@ public class Building {
 
     public String getContactPhone() {
         return contactPhone;
+    }
+    
+    public void addRoom(Room tempRoom){
+        this.room.add(tempRoom);
+    }
+    
+    public String deleteRoom(int id){
+        int count = 0;
+        for(Room r : room){
+            count++;
+            if(r.getId() == id){
+            room.remove(count);
+            return "Room was successfully removed!";
+            }else{
+            return "Room was not found!";
+            }
+        }
+        
+        return "";
+    }
+    
+    public int getAmountOfRooms(){
+        return room.size();
     }
 
 }
